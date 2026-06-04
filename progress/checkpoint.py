@@ -8,8 +8,12 @@ UID_FILE = 'user.txt'
 def _get_user_id ():
     UID_PATH = os.path.join ('..', UID_FILE)
     if not os.path.exists (UID_PATH):
-        print (f"⚠️ Error: '{UID_FILE}' not found! Make sure you haven't deleted it.")
-        return None
+        try:
+            UID_PATH = UID_FILE
+            assert os.path.exists (UID_PATH)
+        except AssertionError:
+            print (f"⚠️ Error: '{UID_FILE}' not found! Make sure you haven't deleted it.")
+            return None
     user_id = None
     with open (UID_PATH, encoding = 'utf8') as fin:
         for line in fin:
@@ -18,7 +22,7 @@ def _get_user_id ():
                 user_id = match.group (1)
                 break
     if user_id is None:
-        print ('⚠️ Error: Please open {UID_FILE} and set your user name there (e.g. USER=John Smith)')
+        print (f'⚠️ Error: Please open {UID_FILE} and set your user name there (e.g. USER=John Smith)')
         return None
     return user_id
 
