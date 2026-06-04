@@ -1,6 +1,7 @@
 REQUIRED = (3, 11)
 STATUS = {'python': False, 'kernel': False}
 import sys 
+import os
 def check_basics ():
     if sys.version_info < REQUIRED:
         print(f'**** BEWARE **** - Your current Python version is {sys.version_info.major}.{sys.version_info.minor}')
